@@ -1,0 +1,67 @@
+---
+title: "Przyklady"
+author: "Michał Burdukiewicz"
+date: "1 12 2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+theme_set(theme_bw())
+```
+
+```{r}
+set.seed(15390)
+dat <- droplevels(diamonds[sample(1L:nrow(diamonds), 100), ])
+```
+
+\newpage
+
+```{r}
+ggplot(dat, aes(x = cut, y = price)) +
+  geom_boxplot(outlier.color = NA) +
+  geom_point(position = "jitter") 
+```
+
+\newpage
+
+```{r}
+group_by(dat, cut, clarity) %>% 
+  summarise(count = length(price)) %>% 
+  ggplot(aes(x = cut, y = clarity, fill = count)) +
+  geom_tile(color = "black") +
+  scale_fill_gradient(low = "white", high = "black")
+```
+
+\newpage
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = clarity)) +
+  geom_point()
+```
+
+\newpage
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = cut)) +
+  geom_point() +
+  facet_wrap(~ clarity, labeller = label_both) 
+```
+
+\newpage
+
+```{r,fig.height=7}
+ggplot(dat, aes(x = color)) +
+  geom_bar() +
+  facet_grid(cut ~ clarity, labeller = label_both) 
+```
+\newpage
+
+```{r}
+ggplot(dat, aes(x = price)) +
+  geom_histogram() +
+  facet_wrap(~ cut, labeller = label_both)
+```
