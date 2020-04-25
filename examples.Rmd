@@ -1,7 +1,6 @@
 ---
 title: "Przyklady"
 author: "Michał Burdukiewicz"
-date: "1 12 2019"
 output: pdf_document
 ---
 
@@ -20,6 +19,8 @@ dat <- droplevels(diamonds[sample(1L:nrow(diamonds), 100), ])
 
 \newpage
 
+## Rysunek 1
+
 ```{r}
 ggplot(dat, aes(x = cut, y = price)) +
   geom_boxplot(outlier.color = NA) +
@@ -27,6 +28,8 @@ ggplot(dat, aes(x = cut, y = price)) +
 ```
 
 \newpage
+
+## Rysunek 2
 
 ```{r}
 group_by(dat, cut, clarity) %>% 
@@ -38,12 +41,16 @@ group_by(dat, cut, clarity) %>%
 
 \newpage
 
+## Rysunek 3
+
 ```{r}
 ggplot(dat, aes(x = carat, y = price, shape = clarity)) +
   geom_point()
 ```
 
 \newpage
+
+## Rysunek 4
 
 ```{r}
 ggplot(dat, aes(x = carat, y = price, shape = cut)) +
@@ -53,12 +60,16 @@ ggplot(dat, aes(x = carat, y = price, shape = cut)) +
 
 \newpage
 
+## Rysunek 5
+
 ```{r,fig.height=7}
 ggplot(dat, aes(x = color)) +
   geom_bar() +
   facet_grid(cut ~ clarity, labeller = label_both) 
 ```
 \newpage
+
+## Rysunek 6
 
 ```{r}
 ggplot(dat, aes(x = price)) +

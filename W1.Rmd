@@ -49,7 +49,7 @@ Michał Burdukiewicz:
  - Stowarzyszenie Wrocławskich Użytkowników R (stwur.pl),
  - Fundacja Why R? (whyr.pl).
 
-Materiały: https://github.com/michbur/WizualizacjaDanychWyklad
+Materiały: https://github.com/michbur/WizualizacjaDanychWyklad2020
 
 Mail: michalburdukiewicz@gmail.com
 
@@ -200,6 +200,15 @@ Dzielenie wykresu na podwykresy w zależności od poziomu zmiennej dyskretnej.
 ggplot(iris, aes(x = Sepal.Length)) +
   geom_density() +
   facet_wrap(~ Species)
+```
+
+## Fasety
+
+Wykres poprzedni bez fasetowania.
+
+```{r, echo=FALSE,warning=FALSE}
+ggplot(iris, aes(x = Sepal.Length, fill = Species)) +
+  geom_density(alpha = 0.7)
 ```
 
 ## Statystyki
