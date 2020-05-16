@@ -1,0 +1,87 @@
+---
+title: "Przyklady"
+author: "Michał Burdukiewicz"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(dplyr)
+library(ggplot2)
+library(ggthemes)
+library(plotly)
+theme_set(theme_bw())
+```
+
+```{r}
+set.seed(15390)
+dat <- droplevels(diamonds[sample(1L:nrow(diamonds), 100), ])
+```
+
+\newpage
+
+## Rysunek 1
+
+```{r}
+ggplot(dat, aes(x = cut, y = price)) +
+  geom_boxplot() +
+  ggtitle("Price of diamonds depending on the cut") +
+  scale_x_discrete("Cut") +
+  scale_y_continuous("Price [USD]")
+```
+
+\newpage
+
+## Rysunek 2
+
+```{r}
+group_by(dat, cut, clarity) %>% 
+  summarise(count = length(price)) %>% 
+  ggplot(aes(x = cut, y = clarity, fill = count, label = count)) +
+  geom_tile(color = "black") +
+  geom_label(fill = "white") +
+  scale_fill_gradient(low = "lightgrey", high = "black")
+```
+
+\newpage
+
+## Rysunek 3
+
+```{r}
+ggplot(dat, aes(x = carat, y = price)) +
+  geom_point() +
+  facet_wrap(~ clarity, labeller = label_both)
+```
+
+\newpage
+
+## Rysunek 4
+
+```{r,fig.height=8}
+p <- ggplot(dat, aes(x = carat, y = price, shape = cut)) +
+  geom_point() +
+  facet_wrap(~ clarity, labeller = label_both, ncol = 2) 
+
+ggplotly(p)
+```
+
+\newpage
+
+## Rysunek 5
+
+```{r,fig.height=7}
+ggplot(dat, aes(x = color, fill = cut)) +
+  geom_bar(position = "dodge") +
+  facet_wrap( ~ clarity, labeller = label_both) 
+```
+\newpage
+
+## Rysunek 6
+
+```{r}
+ggplot(dat, aes(x = price)) +
+  geom_histogram() +
+  scale_x_continuous(limits = c(0, 19000)) +
+  scale_y_continuous(limits = c(0, 13)) +
+  facet_wrap(~ cut, labeller = label_both, scales = "free")
+```
