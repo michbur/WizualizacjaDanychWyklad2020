@@ -22,6 +22,17 @@ dat <- droplevels(diamonds[sample(1L:nrow(diamonds), 100), ])
 
 ## Rysunek 1
 
+### Przed poprawkami
+
+```{r}
+ggplot(dat, aes(x = cut, y = price)) +
+  geom_boxplot(outlier.color = NA) +
+  geom_point(position = "jitter") 
+
+```
+
+### Po poprawkach
+
 ```{r}
 ggplot(dat, aes(x = cut, y = price)) +
   geom_boxplot() +
@@ -30,9 +41,22 @@ ggplot(dat, aes(x = cut, y = price)) +
   scale_y_continuous("Price [USD]")
 ```
 
+
 \newpage
 
 ## Rysunek 2
+
+### Przed poprawkami
+
+```{r}
+group_by(dat, cut, clarity) %>% 
+  summarise(count = length(price)) %>% 
+  ggplot(aes(x = cut, y = clarity, fill = count)) +
+  geom_tile(color = "black") +
+  scale_fill_gradient(low = "white", high = "black")
+```
+
+### Po poprawkach
 
 ```{r}
 group_by(dat, cut, clarity) %>% 
@@ -40,12 +64,21 @@ group_by(dat, cut, clarity) %>%
   ggplot(aes(x = cut, y = clarity, fill = count, label = count)) +
   geom_tile(color = "black") +
   geom_label(fill = "white") +
-  scale_fill_gradient(low = "lightgrey", high = "black")
+  scale_fill_gradient(low = "#deebf7", high = "#3182bd")
 ```
 
 \newpage
 
 ## Rysunek 3
+
+### Przed poprawkami
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = clarity)) +
+  geom_point()
+```
+
+### Po poprawkach
 
 ```{r}
 ggplot(dat, aes(x = carat, y = price)) +
@@ -56,6 +89,17 @@ ggplot(dat, aes(x = carat, y = price)) +
 \newpage
 
 ## Rysunek 4
+
+
+### Przed poprawkami
+
+```{r}
+ggplot(dat, aes(x = carat, y = price, shape = cut)) +
+  geom_point() +
+  facet_wrap(~ clarity, labeller = label_both) 
+```
+
+### Po poprawkach
 
 ```{r,fig.height=8}
 p <- ggplot(dat, aes(x = carat, y = price, shape = cut)) +
@@ -69,6 +113,17 @@ ggplotly(p)
 
 ## Rysunek 5
 
+### Przed poprawkami
+
+```{r,fig.height=7}
+ggplot(dat, aes(x = color)) +
+  geom_bar() +
+  facet_grid(cut ~ clarity, labeller = label_both) 
+```
+
+
+### Po poprawkach
+
 ```{r,fig.height=7}
 ggplot(dat, aes(x = color, fill = cut)) +
   geom_bar(position = "dodge") +
@@ -78,10 +133,25 @@ ggplot(dat, aes(x = color, fill = cut)) +
 
 ## Rysunek 6
 
+
+### Przed poprawkami
+
 ```{r}
 ggplot(dat, aes(x = price)) +
   geom_histogram() +
+  facet_wrap(~ cut, labeller = label_both)
+```
+
+### Po poprawkach
+
+```{r}
+select(dat, price, cut) %>% 
+  group_by(cut) %>% 
+  mutate(med = median(price)) %>% 
+  ggplot(aes(x = price)) +
+  geom_histogram() +
   scale_x_continuous(limits = c(0, 19000)) +
   scale_y_continuous(limits = c(0, 13)) +
+  geom_vline(aes(xintercept = med), color = "red") +
   facet_wrap(~ cut, labeller = label_both, scales = "free")
 ```
