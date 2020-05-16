@@ -59,6 +59,8 @@ Mail: michalburdukiewicz@gmail.com
 4. **Poprawianie wizualizacji.**
 5. **Zaaawansowane wizualizacje danych.**
 
+Materiały ze spotkania 1 już na platfmormie OKNO.
+
 # Polaris
 
 ## Twórcy
