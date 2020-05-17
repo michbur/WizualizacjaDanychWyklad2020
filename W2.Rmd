@@ -47,7 +47,7 @@ Michał Burdukiewicz:
  - Stowarzyszenie Wrocławskich Użytkowników R (stwur.pl),
  - Fundacja Why R? (whyr.pl).
 
-Materiały: https://github.com/michbur/WizualizacjaDanychWyklad
+Materiały: https://github.com/michbur/WizualizacjaDanychWyklad2020
 
 Mail: michalburdukiewicz@gmail.com
 
